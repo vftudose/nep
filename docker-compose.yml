@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    api:
+        build: .docker/api
+        container_name: api
+        ports:
+          - 8080:80
+        volumes:
+          - ./api:/var/www/site
+    database:
+      image: postgres
+      restart: always
+      container_name: database
+      ports:
+        - 5433:5432
+      volumes:
+        - .docker/data:/var/lib/postgresql/data
+      environment:
+      - POSTGRES_DB=nep_db
+      - POSTGRES_USER=nep_usr
+      - POSTGRES_PASSWORD=nep_pwd
